@@ -1,3 +1,4 @@
+import System.Random (randomRIO)
 --Funciones currificadas
 --Una funcion devuelve una funcion que recive multiples parametros
 --Una funcion puede recibir una funcion como parametro
@@ -76,16 +77,21 @@ sumar = do
     let y = read number
     putStrLn(show(x+y))
 
-import System.Random (randomRIO)
 
-juego tar x = do
+
+
+
+juego tar = do
     n <- prompt "Ingrese numero: "
     let guess = read n
-    
+    if (tar == guess) then fin else juego tar
 
+fin = do
+    putStrLn("Fin del juego!")
 
 launcher = do
     n <- randomRIO (1::Int,100)
     let tar = read n
+    juego tar
 
 
