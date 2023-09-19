@@ -1,37 +1,38 @@
 --Funcion generica de ingreso de datos
 prompt x = do
     putStrLn x
-    out <- getLine
-    return out
+    getLine
 
 mainPersona :: IO ()
 mainPersona = do
     list <- ingreso []
-    putStrLn ("a")
-
-mostrar :: [(String,Int,Float)] -> IO ()
-mostrar xs = do
-    let a = ""
-    let b = 1
-    let c = 1.0
-
-    (a,b,c):xs
-
+    putStrLn ("Personas ingresadas") 
+    mostrar list
 
 ingreso :: [(String,Int,Float)] -> IO [(String,Int,Float)]
 ingreso xs = do
-    a <- prompt "Ingrese el nombre: "
-    let nombre = read a :: String
+    nombre <- prompt "Ingrese el nombre: "
     a <- prompt "Ingrese la edad: "
     let edad = read a :: Int
     a <- prompt "Ingrese la altura: "
     let altura = read a :: Float
+
 
     a <- prompt "Agregar una persona? (1/0): "
     let op = read a :: Int
     case op of
         1 -> ingreso (xs ++ [(nombre,edad,altura)])
         0 -> return (xs ++ [(nombre,edad,altura)])
+
+mostrar :: [(String, Int, Float)] -> IO ()
+mostrar [] = putStrLn "--------------------Fin-----------------------"
+mostrar xs = do
+    mostrarPersona (head xs)
+    mostrar (tail xs)
+
+mostrarPersona :: (String, Int, Float) -> IO ()
+mostrarPersona (nombre, edad, altura) = do
+    putStrLn $ "Nombre: " ++ show nombre ++ "           " ++  "Edad: " ++ show edad ++ "           " ++ "Altura: " ++ show altura
 
 aDigitos :: Integer -> [Integer]
 aDigitos 0 = []
