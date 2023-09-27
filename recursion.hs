@@ -7,4 +7,4 @@ remover 0 xs = xs
 remover _ [] = []
 remover n (_:xs) = remover (n-1) xs
 
-
+dropR n xs = reverse ((drop n (reverse xs)))
